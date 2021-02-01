@@ -1,15 +1,19 @@
 import { Button, ButtonsWrapper } from "./styles";
+import {useParams} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
-const InstructorProfile = ({ instructors, instructorSlug, goTo }) => {
+
+const InstructorProfile = ({ instructors }) => {
+  const {nameSlug} = useParams();
   const instructor = instructors.find(
-    (instructor) => instructor.slug === instructorSlug
+    (instructor) => instructor.slug === nameSlug
   );
-
-  if (!instructor) goTo("/404");
 
   const { name, emoji, github, description } = instructor;
 
   const goToGitHub = () => window.open(`https://github.com/${github}`);
+
+  if (!instructor) return <Redirect to="/404"/>;
 
   return (
     <>
@@ -18,11 +22,11 @@ const InstructorProfile = ({ instructors, instructorSlug, goTo }) => {
       <p>{description}</p>
 
       <ButtonsWrapper>
-        <div onClick={() => goTo("/")}>
+        <Link exact to="/">
           <Button color="tomato" textColor="white">
             Go back home
           </Button>
-        </div>
+        </Link>
         <Button onClick={goToGitHub}>Go to GitHub</Button>
       </ButtonsWrapper>
     </>

@@ -1,6 +1,8 @@
 import InstructorTag from "./InstructorTag";
+import { Link } from "react-router-dom";
 
-const Home = ({ instructors, goTo }) => {
+
+const Home = ({ instructors }) => {
   return (
     <>
       <h2>When in doubt, ask for help!</h2>
@@ -8,7 +10,6 @@ const Home = ({ instructors, goTo }) => {
         <InstructorTag
           instructor={instructor}
           key={instructor.slug}
-          goTo={goTo}
         />
       ))}
     </>
